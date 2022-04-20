@@ -118,6 +118,7 @@ float4 RaymarchFogVolume(
 	float t = Ray.TMin;
 	int Steps = 0;
 
+	[loop]
 	while (Steps++ < 10000) // hard-coded (but very high) limit in case we're not converging
 	{
 		t += DensityMaxInvMultStep * (RandomSequence_GenerateSample1D(RandSequence) + 0.5);
@@ -240,6 +241,7 @@ void MainPS(in INPUT_POSITION_QUALIFIERS float4 SvPosition : SV_Position,
 	// ------------------------------------------------------------------------------------------------------
 	// Trace rays and accumulate
 	
+	[loop]
 	for (uint SampleIndex = 0; SampleIndex < VdbParams.SamplesPerPixel; ++SampleIndex)
 	{
 		RandomSequence RandSequence;
